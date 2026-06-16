@@ -1,6 +1,6 @@
 {
-  "installCommand": "cd .. && pnpm install --frozen-lockfile=false",
-  "buildCommand": "npx vite build --config vite.config.ts",
+  "installCommand": "cd .. && npm install -g pnpm && pnpm install --no-frozen-lockfile",
+  "buildCommand": "../../node_modules/.bin/vite build --config vite.config.ts",
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },

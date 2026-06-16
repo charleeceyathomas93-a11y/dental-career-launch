@@ -3,7 +3,20 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
-import { useSubmitContact } from "@workspace/api-client-react";
+import { useMutation } from "@tanstack/react-query";
+
+const useSubmitContact = () =>
+  useMutation({
+    mutationFn: async (payload: { data: { name: string; phone: string; email: string; message: string } }) => {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload.data),
+      });
+      if (!res.ok) throw new Error("Failed to submit");
+      return res.json();
+    },
+  });
 import { toast } from "sonner";
 import { ChevronRight, CheckCircle2, MapPin, Clock, CalendarDays, ArrowRight, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
